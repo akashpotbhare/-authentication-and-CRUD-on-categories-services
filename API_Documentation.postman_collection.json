@@ -1,0 +1,318 @@
+{
+  "info": {
+    "name": "Categories and Services API",
+    "description": "Complete API documentation for Categories and Services management with JWT authentication",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@codesfortomorrow.com\",\n  \"password\": \"Admin123!@#\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/register",
+              "host": ["{{base_url}}"],
+              "path": ["register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('auth_token', response.auth_token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@codesfortomorrow.com\",\n  \"password\": \"Admin123!@#\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": ["{{base_url}}"],
+              "path": ["login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryName\": \"Cleaning Services\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/category",
+              "host": ["{{base_url}}"],
+              "path": ["category"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryName\": \"Updated Cleaning Services\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/category/1",
+              "host": ["{{base_url}}"],
+              "path": ["category", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/category/1",
+              "host": ["{{base_url}}"],
+              "path": ["category", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "item": [
+        {
+          "name": "Add Service",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serviceName\": \"House Cleaning\",\n  \"serviceType\": \"Normal\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/category/1/service",
+              "host": ["{{base_url}}"],
+              "path": ["category", "1", "service"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Services by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/category/1/services",
+              "host": ["{{base_url}}"],
+              "path": ["category", "1", "services"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Service",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serviceName\": \"Premium House Cleaning\",\n  \"serviceType\": \"VIP\",\n  \"priceOptions\": [\n    {\n      \"duration\": 2,\n      \"price\": 50.00,\n      \"priceType\": \"Hourly\"\n    },\n    {\n      \"duration\": 1,\n      \"price\": 200.00,\n      \"priceType\": \"Weekly\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/category/1/service/1",
+              "host": ["{{base_url}}"],
+              "path": ["category", "1", "service", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Service",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/category/1/service/1",
+              "host": ["{{base_url}}"],
+              "path": ["category", "1", "service", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Price Options",
+      "item": [
+        {
+          "name": "Add Price Option",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"duration\": 3,\n  \"price\": 75.00,\n  \"priceType\": \"Hourly\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/service/1/price-option",
+              "host": ["{{base_url}}"],
+              "path": ["service", "1", "price-option"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Price Options by Service",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/service/1/price-options",
+              "host": ["{{base_url}}"],
+              "path": ["service", "1", "price-options"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Price Option",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"duration\": 4,\n  \"price\": 100.00,\n  \"priceType\": \"Hourly\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/price-option/1",
+              "host": ["{{base_url}}"],
+              "path": ["price-option", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Price Option",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/price-option/1",
+              "host": ["{{base_url}}"],
+              "path": ["price-option", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+} 
