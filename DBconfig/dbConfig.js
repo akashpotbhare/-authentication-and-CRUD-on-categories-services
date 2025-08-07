@@ -12,7 +12,8 @@ const dbConfig = {
 
 
 const pool = mysql.createPool(dbConfig);
-
+// console.log('Database configuration loaded:', dbConfig);
+// console.log('Creating database connection pool...');
 // Check the database connection
 pool.getConnection((err, connection) => {
     if (err) {
